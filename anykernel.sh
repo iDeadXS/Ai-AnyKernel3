@@ -45,6 +45,27 @@ replace_string init.rc "cpuctl cpu,timer_slack" "mount cgroup none /dev/cpuctl c
 #insert_line init.tuna.rc "nodiratime barrier=0" after "mount_all /fstab.tuna" "\tmount ext4 /dev/block/platform/omap/omap_hsmmc.0/by-name/userdata /data remount nosuid nodev noatime nodiratime barrier=0";
 #append_file init.tuna.rc "bootscript" init.tuna;
 
+# KernelSU cmdline support
+X=10;
+while [ $X != 0 ];
+do
+    patch_cmdline "ksu.enabled" " ";
+    X=$(($X-1));
+done
+
+if [ ! -z "$(cat /tmp/aikernel_name | grep "KSU" )" ];then
+    ui_print " ";
+    ui_print " • Initializing 'kernel.origin'...";
+    patch_cmdline "ksu.enabled" "ksu.enabled=1";
+else
+    ui_print " ";
+    ui_print " • Initializing 'kernel.faith'...";
+    patch_cmdline "ksu.enabled" "ksu.enabled=0";
+fi
+
+rm -rf /tmp/aikernel_name;
+
+
 # fstab.tuna
 #backup_file fstab.tuna;
 #patch_fstab fstab.tuna /system ext4 options "noatime,barrier=1" "noatime,nodiratime,barrier=0";
