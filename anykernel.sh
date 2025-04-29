@@ -55,11 +55,11 @@ done
 
 if [ ! -z "$(cat /tmp/aikernel_name | grep "KSU" )" ];then
     ui_print " ";
-    ui_print " • Initializing 'kernel.origin'...";
+    ui_print " • Initializing 'KernelSU' profile...";
     patch_cmdline "ksu.enabled" "ksu.enabled=1";
 else
     ui_print " ";
-    ui_print " • Initializing 'kernel.faith'...";
+    ui_print " • Initializing 'Normal' profile...";
     patch_cmdline "ksu.enabled" "ksu.enabled=0";
 fi
 
