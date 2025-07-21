@@ -63,7 +63,7 @@ else
     patch_cmdline "ksu.enabled" "ksu.enabled=0";
 fi
 
-if [ ! -z "$(cat /tmp/aikernel_name | grep "KSU" )" ];then
+if [ ! -z "$(cat /tmp/aikernel_name | grep "NH" )" ];then
     ui_print " ";
     ui_print " • Initializing 'NetHunter' mode...";
     patch_cmdline "nh_mode" "nh_mode=1";
